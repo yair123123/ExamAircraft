@@ -19,7 +19,7 @@ def find_all_locations(cities: list[str], url_api):
     return pipe(
         cities,
         lambda xs: map(lambda x: {**find_city_location(x, url_api)}, xs),
-        lambda xs: map(lambda x: {**x, 'distance': distances(url_api, x)}, xs),
+        lambda xs: map(lambda x: {**x, 'distance': distances(location_israel = find_city_location('jerusalem',url_api),location_other= x)}, xs),
         list
     )
 

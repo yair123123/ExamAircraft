@@ -16,14 +16,14 @@ def find_city_location(city:str,url_api:str) -> dict:
     )
 
 def find_weather_by_city(city:str,url_api:str) -> str:
-    date_filter = "2024-09-13 15:00:00"
+    date_filter = "00:00:00"
     data = get_from_api(f"{url_api}/data/2.5/forecast?q={city}&appid={API_KEY}")
     if data is {}:
         return None
     return pipe(
         data,
         partial(get_in, ['list']),
-        partial(lambda x: next(filter(lambda y: y['dt_txt'] == date_filter, x))),
+        partial(lambda x: next(filter(lambda y:date_filter in y['dt_txt'] , x))),
         lambda x: {
             'city': city,
             'weather': get_in(['weather', 0, 'main'], x, default='לא נמצא'),
